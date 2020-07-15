@@ -1,10 +1,3 @@
-//
-//  ViewController.swift
-//  MapLocationDestination
-//
-//  Created by Pj on 15/07/2020.
-//  Copyright © 2020 Pj. All rights reserved.
-//
 import MapKit
 import CoreLocation
 import UIKit
@@ -14,6 +7,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     
     let locationManager = CLLocationManager()
+    let regionZoomAmount: Double = 5000
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +35,8 @@ class ViewController: UIViewController {
         switch CLLocationManager.authorizationStatus() {
         case .authorizedWhenInUse:
             mapView.showsUserLocation = true
-            
+            centerLocationViewOnUser()
+            locationManager.startUpdatingLocation()
             break
         case .authorizedAlways:
             
@@ -60,18 +55,32 @@ class ViewController: UIViewController {
         }
     }
     
+    //zooming on user location
+    func centerLocationViewOnUser() {
+        if let location = locationManager.location?.coordinate{
+            let region = MKCoordinateRegion.init(center: location, latitudinalMeters: regionZoomAmount, longitudinalMeters: regionZoomAmount)
+            mapView.setRegion(region, animated: true)
+        }
+            
+        
+    }
 }
 
 extension ViewController: CLLocationManagerDelegate {
     
     //updateing as user moves
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
+        guard let location = locations.last else {
+            return
+        }
+        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+        let region = MKCoordinateRegion.init(center: center, latitudinalMeters: regionZoomAmount, longitudinalMeters: regionZoomAmount)
+        mapView.setRegion(region, animated: true)
     }
     
     //when authorization changes
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        
+        checkLocationAuthorizationState()
     }
 }
 
