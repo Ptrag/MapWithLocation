@@ -16,28 +16,72 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="HnF-Cy-cw5">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Vh3-Fv-mpW"/>
                                 </connections>
                             </mapView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="map-marker" translatesAutoresizingMaskIntoConstraints="NO" id="7FY-Ph-ckc">
+                                <rect key="frame" x="187" y="408" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="1ix-17-wrJ"/>
+                                    <constraint firstAttribute="height" constant="40" id="I8x-l8-zMO"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Move the screen to select location" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vox-D6-GBu">
+                                <rect key="frame" x="0.0" y="812" width="414" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="IAp-sA-BWs" userLabel="Added"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s5Y-iu-t0Y">
+                                <rect key="frame" x="304" y="722" width="70" height="70"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="70" id="21H-Il-ZxY"/>
+                                    <constraint firstAttribute="height" constant="70" id="NkM-a1-zQo"/>
+                                </constraints>
+                                <state key="normal" image="map" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="bold"/>
+                                </state>
+                                <connections>
+                                    <action selector="searchPathButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zg7-V0-hwf"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="HnF-Cy-cw5" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="0fk-LW-RzM"/>
                             <constraint firstItem="HnF-Cy-cw5" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="4F7-BE-b9B"/>
+                            <constraint firstAttribute="trailing" secondItem="Vox-D6-GBu" secondAttribute="trailing" id="5no-vI-v8z"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="HnF-Cy-cw5" secondAttribute="bottom" id="6aO-lf-Pf5"/>
+                            <constraint firstItem="Vox-D6-GBu" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="NGk-zh-Yrn"/>
+                            <constraint firstItem="Vox-D6-GBu" firstAttribute="top" secondItem="s5Y-iu-t0Y" secondAttribute="bottom" constant="20" id="RC9-dr-bYH"/>
+                            <constraint firstItem="7FY-Ph-ckc" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-20" id="Z0J-tM-vzn"/>
+                            <constraint firstItem="7FY-Ph-ckc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Zvz-RJ-JO6"/>
                             <constraint firstAttribute="trailing" secondItem="HnF-Cy-cw5" secondAttribute="trailing" id="k94-G0-dC0"/>
-                            <constraint firstAttribute="bottom" secondItem="HnF-Cy-cw5" secondAttribute="bottom" id="oOi-cv-oHE"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Vox-D6-GBu" secondAttribute="bottom" id="sMi-Al-cJn"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="s5Y-iu-t0Y" secondAttribute="trailing" constant="20" id="t5z-LU-q1y"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="destinationLabel" destination="s5Y-iu-t0Y" id="Pjh-0l-VuN"/>
+                        <outlet property="locationLabel" destination="Vox-D6-GBu" id="xrR-4G-mOO"/>
                         <outlet property="mapView" destination="HnF-Cy-cw5" id="Iy4-L3-2JB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="139" y="138"/>
+            <point key="canvasLocation" x="137.68115942028987" y="137.94642857142856"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="map" catalog="system" width="64" height="56"/>
+        <image name="map-marker" width="128" height="128"/>
+    </resources>
 </document>
