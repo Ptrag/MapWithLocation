@@ -25,7 +25,8 @@ class ViewController: UIViewController {
             setupLocationManager()
             checkLocationAuthorizationState()
         }else{
-            //show alert to user leting them know that location services are disabled
+            //shows alert to user leting them know that location services are disabled
+            Alert.showUserLocationDisableAlert(on: self)
         }
     }
     
@@ -50,9 +51,11 @@ class ViewController: UIViewController {
             break
         case .restricted:
             //alert knowing about this status
+            Alert.showUserLocationDisableAlert(on: self)
             break
         case .denied:
             //show alert about this status
+            Alert.showUserLocationDisableAlert(on: self)
             break
         @unknown default:
             break
@@ -63,6 +66,7 @@ class ViewController: UIViewController {
         //check if we have user location
         guard let location = locationManager.location?.coordinate else {
             //alert that we dont have user location
+            Alert.curentLocationNotFoundAlert(on: self)
             return
         }
         //creating a direction request from starting location(user location) and destination(center of the map)
@@ -81,6 +85,7 @@ class ViewController: UIViewController {
         directions.calculate { [unowned self](response, error) in
             guard let response = response else {
                 //show alert to user response not avilable
+                Alert.distanceCalulatinErrorAlert(on: self)
                 return
             }
             self.mapView.addOverlay(response.routes[0].polyline)
@@ -130,11 +135,13 @@ extension ViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         let centerPosition = getCenterMapLocation(mapView: mapView)
         guard let previousLocation = self.prevoiusLocation else{
+            Alert.showUserLocationDisableAlert(on: self)
             return
         }
         
         //setting position change buffer for starting reverse geolacation
         guard centerPosition.distance(from: previousLocation) > 50 else {
+            Alert.curentLocationNotFoundAlert(on: self)
             return
         }
         self.prevoiusLocation = centerPosition
@@ -148,10 +155,12 @@ extension ViewController: MKMapViewDelegate {
             //error checking
             if let _ = error {
                 //show alert informing user
+                Alert.markLocationError(on: self)
                 return
             }
             guard let placemark = placemarks?.first else{
                 //alert informing user
+                Alert.markLocationError(on: self)
                 return
             }
             
